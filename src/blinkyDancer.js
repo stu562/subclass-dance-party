@@ -18,7 +18,7 @@ BlinkyDancer.prototype.step = function() {
   // it just schedules the next step
   this.$node.toggle();
 };
-
+//testing vsLive extensions
 
 //notes:
 //why is this apply to the window at the last test ?!?!?
