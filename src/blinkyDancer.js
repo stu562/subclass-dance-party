@@ -1,5 +1,6 @@
 var BlinkyDancer = function(top, left, timeBetweenSteps) {
   Dancer.call(this, top, left, timeBetweenSteps); // inheriteance of Dancer prop
+  // for ever new object created, this is pointed to it at the time 
   // top, left, timeBetweenSteps);
   // we plan to overwrite the step function below, but we still want the superclass step behavior to work,
   // so we must keep a copy of the old version of this function
@@ -7,16 +8,23 @@ var BlinkyDancer = function(top, left, timeBetweenSteps) {
   // this.oldStep = this.step;
   // return blinkyDancer;
 };
-
+//object delegation********* 
 BlinkyDancer.prototype = Object.create(Dancer.prototype);
 BlinkyDancer.prototype.constructor = BlinkyDancer;
 
+
 BlinkyDancer.prototype.step = function() {
   Dancer.prototype.step.call(this);// this line is creating BlinkyDancer Step to equal Dancer Step function
-
   // the basic dancer doesn't do anything interesting at all on each step,
   // it just schedules the next step
-  this.$node.toggle();
+  //oldstep() === this.step()
+  // this.$node.toggle();
+
+  //using 'new' keyword this is tied to it  
+};
+
+BlinkyDancer.prototype.lineUp = function() {
+   
 };
 //testing vsLive extensions
 
