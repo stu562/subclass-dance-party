@@ -15,42 +15,52 @@ $(document).ready(function() {
      * A new object of the given type will be created and added
      * to the stage.
      */
-    console.log(this);
+    
     var dancerMakerFunctionName = $(this).data('dancer-maker-function-name');
+    
 
     // get the maker function for the kind of dancer we're supposed to make
     var dancerMakerFunction = window[dancerMakerFunctionName];
-
-    //for loop through global array
+    
 
     // make a dancer with a random position
-    //**** line 24 
 
-    //dancer that blinks 
     var dancer = new dancerMakerFunction(
       $("body").height() * Math.random(),
       $("body").width() * Math.random(),
       Math.random() * 1000
     );
     $('body').append(dancer.$node);
+    window.dancers.push(dancer);
 
-    //dancer to line up 
-
-
-
-
+    $('.dancer').mouseover(function() {
+      $('.dancer').css('background-image', 'url("https://cdn.vox-cdn.com/thumbor/zb7zKF67rBkytmhyoc5UZL3faLQ=/0x0:1038x498/1200x800/filters:focal(436x166:602x332)/cdn.vox-cdn.com/uploads/chorus_image/image/51885633/Screen_Shot_2016_11_17_at_10.53.53_AM.0.png")')
+    });
   });
 
-  // $('.squareDancerButton').on('click', function(event) {
-  //   var dancerMakerFunctionName = $(this).data('dancer-maker-function-name');
-  //   var dancerMakerFunction = window[dancerMakerFunctionName];
+  $('.lineUp').on('click', function(event){
+    for(var i = 0; i < window.dancers.length; i++){
+      window.dancers[i].lineUp();
+    }
+  });
 
-  //   var squaredancer = new dancerMakerFunction(
-  //     $("body").height() * Math.random(),
-  //     $("body").width() * Math.random(),
-  //     Math.random() * 1000
-  //   );
-  //   $('body').append(dancer.$node);
-  // });
+  $('.dancePartner').on('click', function(event){
+    for(var i = 0; i < window.dancers.length - 1; i += 2){
+      //var temp = window.dancers[i].$node[0].style;
+      if(window.dancers[i+1] !== undefined){
+        var tempTop = window.dancers[i].$node[0].style.top;
+        var tempLeft = window.dancers[i].$node[0].style.left;
+        
+        window.dancers[i].$node[0].style.top = window.dancers[i+1].$node[0].style.top;
+        window.dancers[i].$node[0].style.left = window.dancers[i+1].$node[0].style.left;
+
+        window.dancers[i+1].$node[0].style.top = tempTop;
+        window.dancers[i+1].$node[0].style.left = tempLeft;
+      }
+    }
+  });
 
 });
+
+
+
